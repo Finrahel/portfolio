@@ -18,27 +18,30 @@ Bienvenue dans le dépôt GitHub de mon portefeuille personnel ! Ce projet a ét
 
 Pour exécuter ce projet en local, suivez les étapes ci-dessous :
 
-1. Clonez ce dépôt :
+1. Téléchargez et installer le .Net8 SDK :
+    [.Net8 SDK Downlader](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.301-windows-x64-installer)
+
+2. Clonez ce dépôt :
     ```sh
-    git clone https://github.com/votre-utilisateur/mon-portefeuille.git
+    git clone https://github.com/finrahel/portfolio.git
     ```
 
-2. Accédez au répertoire du projet :
+3. Accédez au répertoire du projet :
     ```sh
     cd c:\...\Portfolio
     ```
 
-3. Restaurez les packages .NET :
+4. Restaurez les packages .NET :
     ```sh
     dotnet restore
     ```
 
-4. Exécutez l'application :
+5. Exécutez l'application :
     ```sh
     dotnet run --project Portfolio
     ```
 
-5. Ouvrez votre navigateur et allez à l'adresse `https://localhost:5013` pour voir le site en action.
+6. Ouvrez votre navigateur et allez à l'adresse `https://localhost:5013` pour voir le site en action.
 
 
 ## Licence
