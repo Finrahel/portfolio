@@ -1,6 +1,6 @@
 # Mon Portfolio - Blazor (ASP.NET 8)
 
-Bienvenue dans le dépôt GitHub de mon portefeuille personnel ! Ce projet a été réalisé en utilisant Blazor avec la technologie .NET 8. Il s'agit d'un site statique sans base de données, mais avec un peu de C# en arrière-plan pour la page de contact (envoi d'e-mails).
+Bienvenue dans le dépôt GitHub de mon portefeuille personnel ! Ce projet a été réalisé, dans le cadre de l'école, en utilisant Blazor avec la technologie .NET 8. Il s'agit d'un site statique sans base de données, mais avec un peu de C# en arrière-plan pour la page de contact (envoi d'e-mails).
 
 ## Fonctionnalités
 
