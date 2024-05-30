@@ -1,0 +1,174 @@
+﻿@page "/"
+@using System.Net
+@using Microsoft.AspNetCore.Http
+
+<PageTitle>Home</PageTitle>
+
+<body id="body">
+<main>
+    <!-- SLIDER ---------------------------------------->
+    <section id="slider">
+        <div class="background"></div>
+        <div class="pres row align-items-center headline">
+            <h1>
+                Je suis
+                <br/>
+                <span class="tagline">Alexandre Dauba</span>
+                <br/>
+                <span class="int tagline">Développeur d'Applications Bureau</span>
+
+            </h1>
+        </div>
+        <a id="toDown" title="Go to down" href="#me" class="fa fa-chevron-down punchline">
+        </a>
+    </section>
+    <!-- SLIDER END ---------------------------------------->
+
+    <!-- ABOUT ME ---------------------------------------->
+    <section id="me" class="flex">
+        <div class="container">
+            <div class="row w-100 align-items-center">
+                <div class="col">
+                    <h1 class="titreBorder">A propos de moi</h1>
+                    <p>
+                        Je m’appelle <strong>Alexandre Dauba</strong>,
+                        J'ai 19 ans et je suis actuellement en seconde année d'un BTS SIO option SLAM à l'ESNL à Mont de Marsan dans les Landes. Je suis passionné d'informatique, 
+                        de développement et de jeux vidéos.  <br/> <br/>
+                        Je suis actuellement en alternance chez Adour Gestion Informatique (AGI) depuis mon entrée au BTS. AGI est une entreprise qui développe et conçoit des logiciels de gestion d'entreprise
+                        et prend en charge la globalité du système d'information de leurs clients.
+                    </p>
+                    <a target="_blank" href="cv/Alexandre_Dauba_CV.pdf" class="btn btn-cv">TÉLÉCHARGER MON CV</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ABOUT ME end ---------------------------------------->
+
+
+    <!-- ABOUT AGI ---------------------------------------->
+    <section id="AGI" class="flex">
+        <div class="container">
+            <div class="row w-100 align-items-center">
+                <div class="col">
+                    <h1 class="titreBorder">A propos de mon alternance</h1>
+                    <br/>
+                    <br/>
+                    <img src="images/AGI.png" alt="Adour Gestion Informatique"/>
+                    <p>
+                        L'entreprise de mon alternance est <strong>Adour Gestion Informatique</strong>,
+                        Depuis 1978 à Mont de Marsan avec plus de 250 clients AGI est une S.A.S. qui développe et conçoit des logiciels de gestion d'entreprise
+                        et prend en charge la globalité du système d'information de leurs clients. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ABOUT AGI end ---------------------------------------->
+
+    <!-- COMPETENCE  ---------------------------------------->
+    <section id="competence">
+        <div class="left-float">
+            <div class="compLeft animated-element slide-left">
+                <h3><i class="fa fa-code"></i>Compétences techniques</h3>
+                <ul>
+                    <li>PostgreSQL</li>
+                    <li>.NET</li>
+                    <li>C#</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                </ul>
+
+                <h3><i class="fa fa-globe"></i>Langues</h3>
+                <ul>
+                    <li>Français : langue maternelle</li>
+                    <li>Anglais : Avancé C1 </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-float">
+            <div class="compRight animated-element slide-right">
+                <h3 class="titreBorder"><i class="fa fa-briefcase"></i>Outils</h3>
+                <ul class="styled-list large">
+                    <br>
+                    <li>Développement : Rider, Datagrip, docker</li>
+                    <li>Systèmes : Windows, SVN, GitHub</li>
+                </ul>
+                <h3 class="titreBorder"><i class="fa fa-user-circle"></i>Savoir-être</h3>
+                <br >
+                <br >
+                <li> Autonome  </li>
+                <li> Adaptable </li>
+                <li> Organisé </li>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </section>
+
+    <!-- COMPETENCE END  ---------------------------------------->
+
+    <!-- FORMATION ---------------------------------------->
+    <section id="formation">
+        <div class="container">
+            <div class="row">
+                <div class="w-100">
+                    <i class="fa fa-graduation-cap"></i>
+                    <h1>Mon éducation</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row studyItem">
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                    <div class="dates">
+                        <h5>
+                            Septembre 2022,<br>
+                            Juin 2024
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 rightArea">
+                    <div class="arrowpart"></div>
+                    <div class="studyBox">
+                        <h4>BTS Service Informatique aux Organisations en Alternance - En cours</h4>
+                        <h5>En seconde année - à L'Ecole Supérieure du Numérique des Landes</h5>
+                        <p>En alternance chez Adour Gestion Informatique</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row studyItem">
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                    <div class="dates">
+                        <h5>
+                            Septembre 2019,<br>
+                            Juin 2022
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 rightArea">
+                    <div class="arrowpart"></div>
+                    <div class="studyBox">
+                        <h4>Baccalauréat Professionnel en Systèmes Numériques</h4>
+                        <h5>Lycée St Joseph à Gabarret.</h5>
+                        <p>
+                            Option C : Réseau Informatique et Système Communicants / Mention Assez bien <br/>
+                            4 stages d'un mois chacun en Première et Terminale :
+                        </p>
+                        - 6TM Informatique (Novembre 2020)<br/>
+                        - Adour Gestion Informatique (en maintenance informatique - Février/mars 2021)<br/>
+                        - A6Landes Informatique à Mont de Marsan<br/>
+                        - Sudokeys
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- FORMATION END ---------------------------------------->
+    
+
+</main>
+</body>

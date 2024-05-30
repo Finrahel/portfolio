@@ -1,0 +1,78 @@
+﻿@page "/Login"
+@rendermode InteractiveServer
+@using Portfolio.wwwroot
+@using System.Net.Mail
+@using System.Net.Security
+@using System.Security.Cryptography.X509Certificates
+@using Dapper
+@using Npgsql
+@inject NotificationService notify
+@inject NavigationManager NavManager
+
+<h1 style="align-content: center">Veuillez vous connecter pour accéder à la page souhaitée.</h1>
+<RadzenNotification></RadzenNotification>
+<br/>
+<div style="margin: 20px">
+<EditForm Model="@loginModel" OnValidSubmit="@HandleValidSubmit" >
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    
+    <div class="form-row">
+        <div class="form-group col-lg-6">
+            <label class="required font-weight-bold text-dark text-2">Nom d'utilisateur</label>
+            <InputText type="text" @bind-Value="loginModel.Username" maxlength="100" class="form-control" name="name" required />
+            <ValidationMessage For="@(() => loginModel.Username)" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-lg-6">
+            <label class="required font-weight-bold text-dark text-2">Mot de passe</label>
+            <InputText type="text" @bind-Value="loginModel.Password" maxlength="100" class="form-control" name="subject" required />
+            <ValidationMessage For="@(() => loginModel.Password)" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <input type="submit" value="Sumbit" class="btn btn-primary btn-modern">
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+    <a href="/Register" data-toggle="modal" data-target="#hockey">
+        <button btn btn-primary btn-modern> Vous n'avez pas de compte ? Crééz-en un ici.</button>
+    </a>
+</EditForm>
+</div>
+
+
+@code {
+
+    private NpgsqlConnection connection;
+    private LoginModel loginModel = new LoginModel();
+    
+    private async Task HandleValidSubmit()
+    {
+        var stringconnection = $"Server=localhost;Port=8080;User Id=portfolio;Password=portfolio;Database=postgres;";
+        var Postgreconnect = new NpgsqlConnection(stringconnection);
+        var result = Postgreconnect.Query<users>($"Select * from users where username='{loginModel.Username}' and password='{loginModel.Password}'").ToList();
+
+        switch (result.Count())
+        {
+            case 1:
+            {
+                if (result.First().authorised)
+                {
+                    NavManager.NavigateTo("/CFN");
+                    break;
+                }
+                notify.Notify(new NotificationMessage() { Detail = "Identifiants de connexion non autorisés", Severity = NotificationSeverity.Error, Duration = 5000 });
+                break;
+            }
+            case 0:
+                notify.Notify(new NotificationMessage() { Detail = "Identifiants de connexion erronés", Severity = NotificationSeverity.Error, Duration = 5000 });
+                break;
+        }
+        
+    }
+}

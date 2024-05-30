@@ -1,0 +1,140 @@
+﻿@page "/Portfolio"
+<div class="col-sm-3 work-item sc-item">
+    <a href="Projets" data-toggle="modal" data-target="#hockey">
+        Retour en arrière
+    </a>
+</div>
+<style>
+    .content-wrapper {
+        display: flex;
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne en dessous si l'espace est insuffisant */
+    }
+
+    .text-content {
+        flex: 1;
+        min-width: 60%; /* Assure un minimum de largeur pour le texte avant de passer en dessous */
+        margin-right: 20px; /* Ajoute de l'espace à droite du texte */
+    }
+
+    .image-wrapper {
+        flex: 1;
+        min-width: 40%; /* Assure un minimum de largeur pour l'image avant de passer en dessous */
+        padding-left: 20px; /* Espace à gauche de l'image */
+    }
+
+
+    .image-wrapper img {
+        width: 100%; /* L'image s'adapte à la largeur de .image-wrapper */
+        height: auto;
+        max-width: 400px; /* Optionnel: une largeur max pour l'image */
+    }
+</style>
+<div class="container">
+    <div class="content-wrapper">
+        <div class="text-content">
+            <section class="introduction">
+                <h1>Développement du portfolio</h1>
+                <p style="text-indent: 40px;">
+                    Le développement de mon portfolio a été réalisé avec la technologie Blazor, une solution full-stack conçue par Microsoft qui permet de créer des sites web dynamiques en utilisant un unique et même environnement de développement. Blazor offre l'avantage de développer des applications web en C# plutôt qu'en JavaScript, centralisant ainsi l'ensemble du code et des processus.
+                </p>
+                <p style="text-indent: 40px;">
+                    L'ambition de ce projet est de concevoir un portfolio numérique de manière efficiente, minimisant la complexité liée à la gestion du serveur. Le déploiement du projet .NET 8 se fait aisément, c’est un exécutable autonome qui peut s’exécuter aussi bien sous Windows, MacOs ou Linux. Il est possible de déployer dans un container Docker <également class=""></également>
+                </p>
+                <p style="text-indent: 40px;">
+                    Le code source d’une application Blazor est composé d’un ensemble de fichiers répartis dans des dossiers dédiés à chaque type :
+                    Les pages web sont des fichiers .razor, un format permettant une intégration du HTML et du C# au sein d'un même document. Cette synergie entre le balisage et la logique applicative rend le développement clair et précis. Voici un aperçu de l'organisation des pages de mon projet, accessible via l'explorateur de fichiers intégré à mon environnement de développement :
+                </p>
+            </section>
+            
+            <section class="blazor-details">
+                <p style="text-indent: 40px;">
+                    Au sein de l'architecture de mon application Blazor, trois fichiers .razor à la racine du dossier principal sont particulièrement importants pour son fonctionnement global :
+                </p>
+                <ul>
+                    <li><code>App.razor</code> : Ce fichier est le cœur de l'application et définit le cadre HTML global, agissant comme le conteneur principal pour l'affichage des
+                        composants de l'application.
+                    </li>
+                    <li><code>_Imports.razor</code> : Il est utilisé pour centraliser les directives using,
+                        facilitant ainsi l'importation des namespaces nécessaires au code C#
+                        à travers toute l'application.
+                    </li>
+                    <li><code>Routes.razor</code> : Ce fichier est essentiel pour l'architecture de navigation
+                        de l'application Blazor, configurant le système de routage et définissant
+                        comment les composants de page sont localisés et rendus
+                    </li>
+                </ul>
+                <p style="text-indent: 40px;">Le projet est divisé en deux segments distincts : le dossier Components et le dossier <code>wwwroot</code>.</p>
+                <p style="text-indent: 40px;">
+                    Dans Components, vous trouvez les pages Blazor elles-mêmes,
+                    intégrant à la fois le HTML et la logique sous-jacente orchestrant le
+                    fonctionnement du site.
+                </p>
+                <p style="text-indent: 40px;">
+                    wwwroot agit en tant que répertoire racine statique, accessible depuis
+                    les pages Blazor pour l'intégration des ressources telles que les images,
+                    les feuilles de style CSS et d'autres fichiers statiques.
+                </p>
+                <p> Par exemple, pour accéder à ma feuille de style, le chemin spécifié est "css/style.css".</p>
+            </section>
+            <section class="file-structure">
+                <p>Le dossier Components se subdivise en deux catégories principales :</p>
+                <ul>
+                    <li><code>Layout</code> comprend des fichiers comme <code>MainLayout.razor</code> et <code>NavMenu.razor</code>, qui structurent l'interface utilisateur de l'application, notamment la barre de navigation utilisée pour se déplacer entre les différentes pages du portfolio.</li>
+                    <li><code>Pages</code> contient les pages HTML individuelles qui sont rendues et navigables à partir du menu de l'application. Ces pages représentent les différentes sections de mon portfolio, chacune accessible via le système de navigation établi.</li>
+                </ul>
+                <br/>
+                <p style="text-indent: 40px;">
+                    Le composant <em>NavMenu.razor</em> s'occupe essentiellement de la barre de navigation latérale du site, incorporant tous les liens qui permettent de naviguer entre les pages. Chaque élément interactif du menu encapsule un lien spécifique qui, lorsqu'il est activé, commande au navigateur de charger la page correspondante.
+                </p>
+                <img src="images/Picture8.png" alt="Screen UI portfolio">
+                <br/>
+                <br/>
+                <p style="text-indent: 40px;">Prenons un exemple : la page d'accueil est désignée par le chemin "/" tandis qu'une page intitulée "Tableau" serait représentée par "/tableau". Ces identifiants servent à informer le navigateur de l'adresse spécifique à charger et sont consignés dans les fichiers des pages associées pour que l'application sache exactement quelle vue présenter. Pour illustrer ce procédé, voici un extrait typique du code :</p>
+                <img src="images/Picture2.png" alt="Code NavLink tableau de synthèse" width="550" height="200">
+                <br/>
+                <br/>
+                <p style="text-indent: 40px;">
+                    Dans le composant NavLink, la propriété href est utilisée pour définir le chemin. Au sein du fichier de la page cible, on indique cette même référence au début du fichier pour lier la page à son chemin d'accès comme suivant :
+                </p>
+                <img src="images/Picture3.png" alt="Page /Tableau">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                La rubrique contact comporte du code c# déclenché par l’appui du bouton « Envoyer le message »
+                <img src="images/Picture9.png" alt="Screen page contact">
+                <br/>
+                <br/>
+                En cliquant sur le bouton, une validation des données est effectuée.
+                <img src="images/Picture10.png" alt="Screen code contact">
+                <br/>
+                <br/>
+                En cas de succès la méthode HandleValidSubmit est appelée. Elle permet d’envoyer les données du formulaire par email.
+                <br/>
+                <img src="images/Picture11.png" alt="Screen code contact - 2">
+            </section>
+        </div>
+        
+        <div class="image-content" style="margin-top: 250px;">
+            <img src="images/Picture1.png" alt="Capture d'écran de l'explorateur de fichiers">
+            
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/><br/>
+<br/>
+<br/>
+<br/><br/>
+<br/>
+<br/>
+<br/><br/>
+<br/>
+<br/>
+<br/>

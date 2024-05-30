@@ -1,0 +1,209 @@
+﻿@page "/CFN"
+<div class="col-sm-3 work-item sc-item">
+    <a href="Projets" data-toggle="modal" data-target="#hockey">
+        @* <img class="img-fluid" src="images/coffre.jpg" alt="Projet Coffre-Fort Numérique"/> *@
+        @* <div class="overlay"><i class="fa fa-search-plus"></i>Projet Coffre-Fort Numérique</div> *@
+        Retour en arrière
+    </a>
+</div>
+
+<style>
+    .content-wrapper {
+        display: flex;
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne en dessous si l'espace est insuffisant */
+    }
+
+    .text-content {
+        flex: 1;
+        min-width: 60%; /* Assure un minimum de largeur pour le texte avant de passer en dessous */
+        margin-right: 20px; /* Ajoute de l'espace à droite du texte */
+    }
+
+    .image-wrapper {
+        flex: 1;
+        min-width: 40%; /* Assure un minimum de largeur pour l'image avant de passer en dessous */
+        padding-left: 20px; /* Espace à gauche de l'image */
+    }
+
+
+    .image-wrapper img {
+        width: 100%; /* L'image s'adapte à la largeur de .image-wrapper */
+        height: auto;
+        max-width: 400px; /* Optionnel: une largeur max pour l'image */
+        
+    }
+</style>
+
+<div class="container">
+
+    <h1>Le Coffre-Fort Numérique (CFN)</h1>
+    <p style="text-indent: 40px;">
+        L'entreprise Adour Gestion Informatique (<code>AGI</code>) développe ses applications principalement grâce aux technologies Microsoft (<em>.Net Framework 4.5+</em> et langage <em>VB.Net</em> pour la majorité de ses projets). Elles s’appuient sur le système de gestion de bases de données <code>Oracle</code> pour le stockage de données. C’est un système robuste qui nécessite cependant des coûts d’acquisition de licence élevée.
+    </p>
+    <p style="text-indent: 40px;">
+        Dans le cadre de la mise à disposition des documents PDF du Coffre-Fort Numérique (<code>CFN1000</code>) aux clients finaux (les clients des clients d’<code>AGI</code>) il s’agit de mettre au point une alternative de stockage afin de diminuer le montant requis pour les licences d’exploitation.
+    </p>
+    <p style="text-indent: 40px;">
+        Le Coffre-Fort Numérique (<code>CFN1000</code>) est un module intégré au sein de l’application <code>InteGraal XXL</code> qui permet le stockage sécurisé de documents PDF sous forme dématérialisée. Le module communique avec un serveur (<code>CFN Server</code>) par le biais de requêtes http. Les documents PDF sont stockés sous forme binaire dans une base de données.
+    </p>
+
+    <img src="images/Picture12.png" alt="Schéma " width="797.3333333333" height="316" style="margin-left: 130px">
+    <br/>
+    Cette architecture logicielle est déployée sur un réseau TCP/IP standard :
+    <ul>
+        <li>Le serveur, qui héberge à la fois l'API REST du <code>CFN Server</code> et la base de données contenant l'intégralité des informations,</li>
+        <li>Deux postes de travail en exemple, chacun exécutant l'application <code>InteGraal XXL</code> avec le module <code>CFN1000</code>.</li>
+    </ul>
+
+
+    <img src="images/Picture5.png" alt="Schéma réseau simplifié" style="margin-left: 250px">
+    <p style="text-indent: 40px;">
+        Le projet a ainsi évolué vers la recherche d'une base de données alternative, avec PostgreSQL se démarquant comme une solution viable répondant aux besoins professionnels tout en offrant une compatibilité avec les capacités d'Oracle. L'objectif est double : adapter les requêtes pour assurer la compatibilité avec la nouvelle base de données choisie et, si possible, du code, et du fonctionnement général du Coffre-Fort Numérique, sans pour autant modifier l'interface utilisateur
+    </p>
+    <p style="text-indent: 40px;">
+        L’objectif est de rendre <code>CFN1000</code> compatible avec <code>Oracle</code> et <code>PostgreSQL</code> simultanément. Pour des raisons techniques le projet a basculé sur le développement d'une API REST entièrement nouvelle laissant de côté la version serveur initiale. Le code du module client préalablement en VB.Net, a été migré vers C# afin de bénéficier d’une meilleure prise en charge des outils de refactorisation disponible dans mon IDE Rider.
+    </p>
+    <p>
+        Pour pouvoir rendre le Coffre-Fort Numérique compatible avec les deux différents types de bases de données il est nécessaire qu’elles aient le même schéma. La base <code>PostgreSQL</code> a donc été calquée sur sa version Oracle (les types de données supportés étant similaires). Voici un schéma de la base de données qui est utilisée :
+    </p>
+    <img src="images/Picture6.png" alt="Schéma base de données" width="504.5" height="544" style="margin-left: 250px">
+
+    <br/>
+    <br/>
+    Il y a 10 tables, parmi lesquelles trigger_message et dmt_files_tampon peu utilisées. Voici une description détaillée de leurs fonctions :
+    <ul>
+        <li><em>dmt_lignes</em> : Cette table recense de manière exhaustive les fichiers, en précisant le nom, la référence et la date du fichier, ainsi que des informations en lien avec les autres tables.</li>
+        <li><em>dmt_type_entrees</em> : Cette table détermine si l'entité concernée est un client ou un fournisseur</li>
+        <li><em>dmt_type_document</em> : : Elle catégorise les fichiers PDF selon leur type, indiquant s'il s'agit d'un bon de livraison, d'une facture, etc.</li>
+        <li><em>dmt_droits</em> : Cette table définit les droits d'accès attribués aux utilisateurs.</li>
+        <li><em>dmt_societe</em> : Cette table attribue un numéro unique à chaque société (001, 002, 003, etc.).</li>
+        <li><em>dmt_users</em> : Elle conserve la liste des utilisateurs, incluant leur code utilisateur et leur mot de passe sécurisé via un hachage MD5.</li>
+        <li><em>dmt_files</em> : Elle stocke les fichiers sous forme binaire directement dans la base de données et attribue à chaque fichier un ID unique, actualisé par une séquence. Cet ID est aussi référencé dans Dmt_lignes</li>
+        <li><em>dmt_entrees</em> : Elle répertorie les entreprises et entités qui possèdent des fichiers au sein du Coffre-fort Numérique.</li>
+    </ul>
+    <br/>
+    <br/>
+    <p style="text-indent: 40px;">
+        Le Coffre-Fort Numérique (<code>CFN1000</code>) est organisé en trois composantes principales : l'application cliente sur le poste informatique, l'API REST et la base de données sur le serveur. Nous nous concentrerons d'abord sur l'API, qui constitue la partie serveur.
+    </p>
+    <p style="text-indent: 40px;">
+        L'API REST est une application serveur conçue en <em>.NET 7</em> utilisant le langage <em>C#</em> avec l'outil <em>Dapper</em>, un micro-ORM, pour faciliter le transfert des données de la base vers et depuis dans des objets en mémoire
+    </p>
+
+    <div class="content-wrapper">
+        <div class="text-content">
+            <br/>
+            <br/>
+            Les fichiers source du projet CFN Serveur sont organisés comme suit :
+            <ul>
+                <li><code>Controllers</code> : Ces fichiers correspondent aux contrôleurs associés aux url appelées par l'application cliente via des requêtes HTTP.</li>
+                <li><code>Entities</code> : Ce dossier est utilisé pour définir une classe User contenant un ID, un nom, un code, un mot de passe, et des droits spécifiques</li>
+                <li><code>Helpers</code> : Ce dossier contient des fichiers essentiels pour la gestion de la sécurité et de l’authentification.</li>
+                <li><code>Models</code> : Contient des classes qui seront automatiquement sérialisées au format Json et échangées avec le module client.</li>
+                <li><code>Providers</code> : Dossier dédié à la configuration de l'API et à la gestion des accès aux bases de données.</li>
+                <li><code>Services</code> : Contient des fichiers qui gèrent les requêtes SQL, chaque fonction étant appelée par les <code>Controllers</code>.</li>
+            </ul>
+            A chaque url correspond une méthode spécifique :
+            <br/>
+            <img src="images/Picture13.png"/>
+        </div>
+        <div class="image-content" >
+            <img src="images/Picture7.png" alt="Capture d'écran de l'explorateur de fichiers">
+
+        </div>
+    </div>
+    <p style="text-indent: 40px;">
+        Il est précisé en en-tête que la fonction est accessible via une méthode HTTP POST sous l'URL ListeDocuments. Une balise (AuthorizeReadJwt) indique que l'accès à cette fonction nécessite une autorisation spécifique provenant du token, sujet sur lequel nous reviendrons ultérieurement.
+    </p>
+    
+    <br/>
+    Un exemple d’appel coté client :
+    <img src="images/Picture14.png"/>
+    <br/>
+    <br/>
+    La fonction démarre avec la création d'une nouvelle requête à l'adresse URL suivante :
+    <ul>
+        <li><code>api/documents/ListeDocuments</code></li>
+    </ul>
+    <br/>
+    <p style="text-indent: 40px;">
+        Cette URL indique que la fonction recherchée est située dans le contrôleur des documents au sein de l'API, fournissant ainsi le chemin complet. Il est important de noter que chaque contrôleur au sein de l'API REST dispose de son propre chemin d'accès ainsi que de sous-chemins pour ses fonctions associées. (Les chemins originaux de la version Web Service ont été conservés). Une particularité existe avec le contrôleur Tiers, qui gère deux chemins distincts pour ses deux types d'entités Tiers et Type de Tiers ce qui se traduit par les URLs suivantes :
+    </p>
+    <ul>
+        <li><code>api/tiers/delete</code></li>
+        <li><code>api/tiers/TypeTiers/delete</code></li>
+    </ul>
+    <br/>
+    <p style="text-indent: 40px;">
+        Ces chemins correspondent aux tables dmt_entrees et dmt_type_entrees dans la base de données, respectivement pour les tiers et les types de tiers. Cette organisation permet une gestion structurée et claire des appels API en relation avec les structures de données sous-jacentes. 
+    </p>
+    <p style="text-indent: 40px;">
+        Le dossier <code>Helpers</code> gère les tokens JWT au sein de l'API où il est signé et déchiffré, garantissant que seul l'API puisse manipuler ces informations sécurisées. Le processus d'authentification est strict : si une requête à l'API ne comporte pas de token ou s’il ne contient pas les droits nécessaires, une erreur est renvoyée. La gestion des droits est détaillée ci-dessous où les droits d’accès sont comparés aux informations de la base de données. Un mécanisme similaire est mis en place pour les droits d'écriture.
+    </p>
+    <img src="images/Picture15.png"/>
+    <br/>
+    <br/>
+    <p style="text-indent: 40px;">
+        En outre, à chaque démarrage du module <code>CFN1000</code> des requêtes sont systématiquement envoyées à l'API. Ces requêtes ont pour but de charger les données nécessaires pour remplir deux menus déroulants dans l'interface du module, permettant ainsi une interaction utilisateur fluide dès le lancement de l'application.
+    </p>
+    <p style="text-indent: 40px;">
+        Cette structure permet non seulement de sécuriser les échanges de données mais aussi de garantir que l'interface utilisateur soit toujours à jour, grâce à des informations correctement initialisées et sécurisées par l'API.
+    </p>
+    <br/>
+    Maintenant que les bases du fonctionnement ont été établies voici l’interface de base du module CFN1000 ci-dessous :
+    <br/>
+    <img src="images/Picture16.png"/>
+    <br/>
+    <br/>
+    <p style="text-indent: 40px;">
+        Dans le volet gauche de l'écran principal, vous découvrez un ensemble de champs de saisie dynamiques conçus pour affiner vos recherches documentaires avec précision. Vous avez la possibilité de filtrer les résultats selon plusieurs critères, notamment :
+    </p>
+    <ul>
+        <li>le type de document recherché,</li>
+        <li>la catégorie des tiers (clients ou fournisseurs, par exemple),</li>
+        <li>un tiers spécifique,</li>
+        <li>une référence documentaire particulière,</li>
+        <li>ainsi qu'un intervalle de dates pour une recherche chronologique ciblée.</li>
+    </ul>
+    <br/>
+    <p style="text-indent: 40px;">
+        Au sommet de l'interface, des icônes directionnelles servent de guides visuels vers les fonctionnalités essentielles du système. Ces icônes vous mènent aux outils d'insertion de nouveaux documents et d'accès à la configuration du système.
+    </p>
+
+    <div class="content-wrapper">
+        <div class="text-content">
+            <br/>
+            <br/>
+            Les étapes à suivre pour ajouter un document sont les suivantes
+            <ul>
+                <li>sélectionner et importez le fichier désiré via une </li>
+                <li>déterminer le type de document parmi les options proposées,</li>
+                <li>attribuer une référence spécifique au document pour faciliter son identification future,</li>
+                <li>choisir la catégorie de tiers concernée,</li>
+                <li>et enfin, saisir le code correspondant au tiers en question. </li>
+            </ul>
+        </div>
+        <div class="image-content" >
+            <img src="images/Picture17.png">
+        </div>
+    </div>
+    <br/>
+    <p style="text-indent: 40px;">
+        Lors de cette démarche, des listes déroulantes permettent de sélectionner le type de document et le type de tiers. De plus, lorsqu'il s'agit de renseigner le code tiers, une fenêtre intermédiaire apparait permettant de choisir parmi les éléments pré-enregistrés dans le système.
+    </p>
+    <p>
+        Les utilisateurs doivent s'authentifier pour débloquer l'accès à des fonctionnalités avancées.
+    </p>
+    <img src="images/Picture18.png"/>
+    <br/>
+    <br/>
+    <br/>
+    <p style="text-indent: 40px;">
+        Dans cet environnement sécurisé, l'utilisation de droits administratifs est nécessaire et fait l'objet d'une vérification. Si l'authentification est confirmée des onglets supplémentaires sont affichés permettant de modifier les informations stockées dans la base de données.
+    </p>
+    <img src="images/Picture19.png"/>
+    <img src="images/Picture20.png"/>
+    <img src="images/Picture21.png"/>
+    
+    
+</div>
