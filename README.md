@@ -18,7 +18,7 @@ Bienvenue dans le dépôt GitHub de mon portefeuille personnel ! Ce projet a ét
 
 Pour exécuter ce projet en local, suivez les étapes ci-dessous :
 
-1. Téléchargez et installer le .Net8 SDK :
+1. Téléchargez et installez le .Net8 SDK :
     [.Net8 SDK Downlader](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.301-windows-x64-installer)
 
 2. Clonez ce dépôt :
@@ -46,7 +46,7 @@ Pour exécuter ce projet en local, suivez les étapes ci-dessous :
 
 ## Licence
 
-Ce projet est sous licence GNU. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+Ce projet est sous licence GNU.
 
 ---
 
